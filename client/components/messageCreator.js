@@ -2,11 +2,12 @@ import React,{ Component, PropTypes } from 'react';
 import * as actions from '../actions';
 import { connect } from 'react-redux';
 import moment from 'moment';
-import socket from 'socket.io-client';
 import profile from './profile';
+import io from 'socket.io-client';
 
+let socket = io('http://localhost:3090');
 
-class MessageCreator extends Component {
+export default class MessageCreator extends Component {
 
 	 constructor(props, context) {
     super(props, context);
@@ -16,7 +17,13 @@ class MessageCreator extends Component {
     };
 		this.socket = io();
   }
-
+   componentDidMount() {
+    const { socket,  dispatch } = this.props;
+    console.log('mounted :', this.props);
+    if(this.props.authenticated) {
+      console.log('authenticated!!')
+    }
+  }
 
 
   onKeyDown(event) {
@@ -28,7 +35,7 @@ class MessageCreator extends Component {
       event.preventDefault();
       var data = {
         message: text,
-        user: id,
+        user: typing,
         time: moment.utc().format('lll')
       };
       // socket.emit('codeChange', data);
@@ -63,8 +70,3 @@ class MessageCreator extends Component {
   }
 
 }
-function mapStateToProps(state){
-	return { message: state.text}
-}
-
-export default connect(mapStateToProps)(MessageCreator);
