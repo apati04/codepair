@@ -18,7 +18,6 @@ export default class Chat extends Component {
   }
 
 
-
   render() {
     return (
       <Draggable>
@@ -36,7 +35,7 @@ export default class Chat extends Component {
               <div id="content" className="content">
                 <MessageList />
               </div>
-              innter
+            
             </div>
             <div id="bottom" className="bottom">
               bottom
