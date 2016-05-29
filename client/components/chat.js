@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
 import Draggable, { DraggableCore } from 'react-draggable';
-
+import MessageList from './messageList';
+import * as actions from '../actions';
 
 export default class Chat extends Component {
   constructor(props){
@@ -10,8 +11,13 @@ export default class Chat extends Component {
     // this.state= {
     //   createMessage: { fromID, toID, message }
     // }
+    this.state = {
+      text: ''
+    }
     console.log(this.props);
   }
+
+
 
   render() {
     return (
@@ -27,7 +33,9 @@ export default class Chat extends Component {
               </div>
             </nav>
             <div id="inner" className="inner">
-              <div id="content" className="content"></div>
+              <div id="content" className="content">
+                <MessageList />
+              </div>
               innter
             </div>
             <div id="bottom" className="bottom">
@@ -41,13 +49,15 @@ export default class Chat extends Component {
   }
   onChange(event, value) {
     this.setState({text: event.target.value});
+
   }
   onKeyDown(event) {
     // keyboard code for Enter key
     if(event.keyCode === 13) {
+      console.log(this.props);
       let text = this.state.text.trim();
       if (text) {
-        this.props.actions.createMessage(text, this.props.fromID);
+       console.log( this.props);
       }
       this.setState({text: ''});
     }
