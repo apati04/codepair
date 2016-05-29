@@ -8,7 +8,8 @@ import IconButton from 'material-ui/IconButton';
 import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
 import IconMenu from 'material-ui/IconMenu';
 import MenuItem from 'material-ui/MenuItem';
-
+import Profile from './profile';
+import MessageCreator from './messageCreator';
 const iconButtonElement = (
   <IconButton
     touch={true}
@@ -31,15 +32,15 @@ export default class MessagesList extends Component {
     let {message} = this.props;
     return (
       <div id="content" className="content">
-      <Subheader>The Subheader</Subheader>
+      <Subheader>{ this.text} </Subheader>
       <ListItem
         rightIconButton={rightIconMenu} 
         primaryText={
-          <p> primary text</p>
+          <p>{ message } </p>
         }
         secondaryText={
           <p>
-          <span style={ {color: 'grey'} }>to me, Scott, Jenn</span>
+          <span style={ {color: 'grey'} }>{ Profile } </span>
           Secondary text
           </p>
         }
