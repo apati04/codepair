@@ -3,12 +3,13 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router';
 import Draggable, { DraggableCore } from 'react-draggable';
 
-import Message from './chat/message';
-import MessageList from './chat/messageList';
-
 
 export default class Chat extends Component {
- 
+  constructor(props){
+    super(props);
+    this.state= { fromID, toID, message };
+    
+  }
   render() {
     return (
       <Draggable>
@@ -24,9 +25,11 @@ export default class Chat extends Component {
             </nav>
             <div id="inner" className="inner">
               <div id="content" className="content"></div>
+              innter
             </div>
             <div id="bottom" className="bottom">
-              <textarea id="input" className="input"></textarea>
+              bottom
+              <textarea id="input" className="input">{this.text}</textarea>
               <div id="send" className="send"></div>
             </div>
           </div>
