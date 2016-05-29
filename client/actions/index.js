@@ -303,7 +303,6 @@ export function fetchMessagesIfNeeded() {
 				})
 	}
 
-<<<<<<< 025767d7a1f86d21183cc18d63e08729325e564b
 export function createMessage({fromID, toID, message}) {
 		axios.post(`${API_URL}/user/send`, { fromID, toID, message }, { 
 			headers: { authorization: localStorage.getItem('token') }
@@ -318,6 +317,4 @@ export function createMessage({fromID, toID, message}) {
 				console.log('error in createMessage action creator: ',response);
 			})
 }
-=======
-}
->>>>>>> [fix] removes create message from indexjs
+
