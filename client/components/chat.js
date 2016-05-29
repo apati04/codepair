@@ -7,9 +7,12 @@ import Draggable, { DraggableCore } from 'react-draggable';
 export default class Chat extends Component {
   constructor(props){
     super(props);
-    this.state= { fromID, toID, message };
-    
+    // this.state= {
+    //   createMessage: { fromID, toID, message }
+    // }
+    console.log(this.props);
   }
+
   render() {
     return (
       <Draggable>
@@ -29,11 +32,24 @@ export default class Chat extends Component {
             </div>
             <div id="bottom" className="bottom">
               bottom
-              <textarea id="input" className="input">{this.text}</textarea>
-              <div id="send" className="send"></div>
+              <textarea id="input" name="message" onChange={this.onChange.bind(this)} onKeyDown= {this.onKeyDown.bind(this)} className="input"></textarea>
+              <div id="send" className="send">Button</div>
             </div>
           </div>
       </Draggable>
     )
+  }
+  onChange(event, value) {
+    this.setState({text: event.target.value});
+  }
+  onKeyDown(event) {
+    // keyboard code for Enter key
+    if(event.keyCode === 13) {
+      let text = this.state.text.trim();
+      if (text) {
+        this.props.actions.createMessage(text, this.props.fromID);
+      }
+      this.setState({text: ''});
+    }
   }
 }
