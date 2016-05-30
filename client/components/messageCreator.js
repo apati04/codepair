@@ -3,9 +3,6 @@ import * as actions from '../actions';
 import { connect } from 'react-redux';
 import moment from 'moment';
 import profile from './profile';
-import io from 'socket.io-client';
-
-let socket = io('http://localhost:3090');
 
 export default class MessageCreator extends Component {
 
@@ -14,22 +11,12 @@ export default class MessageCreator extends Component {
     this.state = {
       text: '',
       typing: false
-    };
-		this.socket = io();
   }
-   componentDidMount() {
-    const { socket,  dispatch } = this.props;
-    console.log('mounted :', this.props);
-    if(this.props.authenticated) {
-      console.log('authenticated!!')
-    }
   }
-
-
   onKeyDown(event) {
-  	console.log('my id: ', profile.id);
-    const { message , typing} = this.props;
+    const { socket, message , typing} = this.props;
     console.log('the this props ,: ', this.props);
+    console.log(this.context);
     const text = event.target.value.trim();
     if (event.which === 13) {
       event.preventDefault();
@@ -38,22 +25,22 @@ export default class MessageCreator extends Component {
         user: typing,
         time: moment.utc().format('lll')
       };
-      // socket.emit('codeChange', data);
-      // socket.emit('stop typing', { user: user.username, channel: activeChannel });
-      console.log('the data: ' , data);
-      
+      socket.emit('new message', newMessage);
+      socket.emit('stop typing', { user: user.username, channel: activeChannel });
+      // this.props.onSave(newMessage);
       this.setState({ text: '', typing: false });
     }
   }
   onChange(event) {
-    const { userId , typing } = this.props;
+    const { socket, user, activeChannel } = this.props;
+    console.log('the props', this.props);
     this.setState({ text: event.target.value });
     if (event.target.value.length > 0 && !this.state.typing) {
-      console.log('i am typing : ', event.target.value)
+      // socket.emit('typing', { user: user.username, channel: activeChannel });
       this.setState({ typing: true});
     }
     if (event.target.value.length === 0 && this.state.typing) {
-      // socket.emit('stop typing', { user: user.username, channel: activeChannel });
+      socket.emit('stop typing', { user: user.username, channel: activeChannel });
       this.setState({ typing: false});
     }
   }
@@ -62,6 +49,8 @@ export default class MessageCreator extends Component {
       <textarea 
         name="message"
         className="input"
+        ref='messageCreator'
+        autoFocus="true"
         value={this.state.text}
         onChange={this.onChange.bind(this)}
         onKeyDown={this.onKeyDown.bind(this)}

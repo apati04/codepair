@@ -1,27 +1,46 @@
 import React, { Component, PropTypes } from 'react';
-import { connect } from 'react-redux';
-import { Link } from 'react-router';
 import Draggable, { DraggableCore } from 'react-draggable';
 import MessageList from './messageList';
 import MessageCreator from './messageCreator';
 import * as actions from '../actions';
-import MatchItem from './matchItem';
-import io from 'socket.io-client';
+import user from './matchItem';
+import { connect } from 'react-redux';
 
-let socket = io('http://localhost:3090');
 
-export default class Chat extends Component {
-	
-	
-  componentDidMount() {
-    const { socket,  dispatch } = this.props;
-    console.log('mounted :', this.props);
-    if(this.props.authenticated) {
-    	console.log('authenticated!!')
+
+class Chat extends Component {
+	constructor(props) {
+    super(props);
+    this.state = {
+      privateChannelModal: false,
+      targetedUser: ''
     }
   }
+	// componentDidMount() {
+	// 	const socket = io.connect();
+ //    const { user, dispatch } = this.props;
+ //    socket.emit('chat mounted', user);
+ //    socket.on('new message', msg =>
+ //      dispatch(actions.receiveMessage(msg))
+ //    );
+ //    socket.on('typing bc', user =>
+ //      dispatch(actions.typing(user))
+ //    );
+ //    socket.on('stop typing bc', user =>
+ //      dispatch(actions.stopTyping(user))
+ //    );
+ //  }
+	// handleClickOnUser(user) {
+ //    this.setState({ privateChannelModal: true, targetedUser: user });
+ //  }
+ //    handleSendDirectMessage() {
+ //    const { dispatch, socket, channels, user } = this.props;
+ //  }
 
 	render() {
+	
+    
+
 	return (
 	<Draggable>
 			<div className="wrapper">
@@ -29,7 +48,7 @@ export default class Chat extends Component {
 					<div className="default-nav">
 						<div className="main-nav">
 							<div className="toggle"></div>
-							<div className="main-nav-item"><a href="#" className="main-nav-item-link">Andrew</a></div>
+							<div className="main-nav-item"><a href="#" className="main-nav-item-link">{ this.fromUser }</a></div>
 							<div className="options"></div>
 						</div>
 					</div>
@@ -43,12 +62,16 @@ export default class Chat extends Component {
 					</div>
 			</div>
 	</Draggable>
-	)
+	);
 	}
 }
 
-function mapStateToProps(state){
-	return { chat: state }
+function mapStateToProps(state) {
+  return {
+      messages: state.messages,
+      user: state.auth.user,
+      typers: state.typers,
+  }
 }
+export default connect(mapStateToProps)(Chat)
 
-export default connect(mapStateToProps, actions)(Chat);

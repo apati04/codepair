@@ -13,6 +13,7 @@ import * as actions from '../actions';
 import { Link } from 'react-router';
 import CircularProgress from 'material-ui/CircularProgress';
 import MatchItem from './matchItem';
+import Chat from './chat';
 
 const style = {
 	grid: {
@@ -196,6 +197,7 @@ class Profile extends Component {
 											<MatchItem context={this} handleClick={this.handleListItemClick} match={match} /> 
 										)}
 									</List>
+										<Chat />
 								</Paper>
 							</div>
 						</Col>
