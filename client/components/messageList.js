@@ -31,14 +31,14 @@ export default class MessagesList extends Component {
     super(props);
   }
   render () {
-  
+     const { user } = this.props;
     return (
       <div id="content" className="content">
       <Subheader>Subheader </Subheader>
       <ListItem
         rightIconButton={rightIconMenu} 
         primaryText={
-          <p> {this.props.userId} </p>
+          <p> {this.props.user} </p>
         }
         secondaryText={
           <p>
