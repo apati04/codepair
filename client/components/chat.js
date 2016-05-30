@@ -16,8 +16,7 @@ export default class Chat extends Component {
   }
 	componentDidMount(){
 		this.socket = io();
-		console.log('chat.js connected', profile);
-
+		console.log('props : ', this.props);
 	}
 
 	render() {
@@ -31,13 +30,15 @@ export default class Chat extends Component {
 					<div className="default-nav">
 						<div className="main-nav">
 							<div className="toggle"></div>
-							<div className="main-nav-item"><a href="#" className="main-nav-item-link">{ this.fromUser }</a></div>
+							<div className="main-nav-item"><a href="#" className="main-nav-item-link"></a></div>
 							<div className="options"></div>
 						</div>
 					</div>
 				</nav>
 				<div id="inner" className="inner">
+
 					<MessageList />
+					
 				</div>
 				<div id="bottom" className="bottom">
 					<MessageCreator />

@@ -25,7 +25,7 @@ export default class MessageCreator extends Component {
         time: moment.utc().format('lll')
       };
       this.socket.emit('new message', newMessage);
-   
+      this.props.addMessage({newMessage});
       // this.props.onSave(newMessage);
       this.setState({ text: '', typing: false});
     }

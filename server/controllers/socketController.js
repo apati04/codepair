@@ -117,9 +117,10 @@ io.on('connection', function(socket) {
 		console.log(sockets[0]);
 	})
 	// chat
-  socket.on('typing', function (data) {
-    socket.broadcast.to(data.channel).emit('typing bc', data.user);
-  });
+	 socket.on('new message', function(msg) {
+      socket.emit('new bc message', msg);
+
+    });
   socket.on('stop typing', function (data) {
     socket.broadcast.to(data.channel).emit('stop typing bc', data.user);
   });

@@ -10,6 +10,7 @@ class ChatContainer extends Component {
     this.socket = io();
     console.log(this.socket.id);
   }
+
   render() {
    
     return (
@@ -19,7 +20,9 @@ class ChatContainer extends Component {
 }
 function mapStateToProps(state) {
   return {
-      message: state.message
+      userId: state.profile.id,
+      user: state.profile.name,
+      matches: state.cards.matches
   }
 }
 export default connect(mapStateToProps, actions)(ChatContainer)
