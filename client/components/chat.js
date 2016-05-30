@@ -4,38 +4,37 @@ import MessageList from './messageList';
 import MessageCreator from './messageCreator';
 import * as actions from '../actions';
 import user from './matchItem';
-import { connect } from 'react-redux';
+import io from 'socket.io-client';
 
-
-
-class Chat extends Component {
+export default class Chat extends Component {
 	constructor(props) {
     super(props);
     this.state = {
-      privateChannelModal: false,
-      targetedUser: ''
+      typers: false,
+      user: '',
+      messages: '',
     }
   }
-	// componentDidMount() {
-	// 	const socket = io.connect();
- //    const { user, dispatch } = this.props;
- //    socket.emit('chat mounted', user);
- //    socket.on('new message', msg =>
- //      dispatch(actions.receiveMessage(msg))
- //    );
- //    socket.on('typing bc', user =>
- //      dispatch(actions.typing(user))
- //    );
- //    socket.on('stop typing bc', user =>
- //      dispatch(actions.stopTyping(user))
- //    );
- //  }
-	// handleClickOnUser(user) {
- //    this.setState({ privateChannelModal: true, targetedUser: user });
- //  }
- //    handleSendDirectMessage() {
- //    const { dispatch, socket, channels, user } = this.props;
- //  }
+	componentDidMount() {
+		const socket = io.connect();
+    const { user, dispatch } = this.props;
+    socket.emit('chat mounted', user);
+    socket.on('new message', msg =>
+      dispatch(actions.receiveMessage(msg))
+    );
+    socket.on('typing', user =>
+      dispatch(actions.typing(user))
+    );
+    socket.on('stop typing bc', user =>
+      dispatch(actions.stopTyping(user))
+    );
+  }
+	handleClickOnUser(user) {
+    this.setState({ privateChannelModal: true, targetedUser: user });
+  }
+    handleSendDirectMessage() {
+    const { dispatch, socket, channels, user } = this.props;
+  }
 
 	render() {
 	
@@ -65,13 +64,3 @@ class Chat extends Component {
 	);
 	}
 }
-
-function mapStateToProps(state) {
-  return {
-      messages: state.messages,
-      user: state.auth.user,
-      typers: state.typers,
-  }
-}
-export default connect(mapStateToProps)(Chat)
-
