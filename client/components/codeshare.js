@@ -6,7 +6,7 @@ import AceEditor from 'react-ace';
 import * as actions from '../actions';
 import DropDownMenu from 'material-ui/DropDownMenu';
 import MenuItem from 'material-ui/MenuItem';
-
+import ChatContainer from '../container/chatContainer';
 // Imports language libraries to use in Ace Editor
 import 'brace/mode/javascript';
 import 'brace/mode/java';
@@ -118,6 +118,7 @@ class CodeShare extends Component {
 				    name="UNIQUE_ID_OF_DIV"
 				    editorProps={{$blockScrolling: true}}
 				  />
+				 <ChatContainer />
 			</div>
 		);
 	}

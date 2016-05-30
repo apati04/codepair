@@ -204,7 +204,6 @@ class Profile extends Component {
 											<MatchItem context={this} handleClick={this.handleListItemClick} match={match} /> 
 										)}
 									</List>
-										<ChatContainer />
 								</Paper>
 							</div>
 						</Col>
