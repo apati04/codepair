@@ -17,12 +17,15 @@ io.on('connection', function(socket) {
 			people[socket.id] = user.id;
 			io.emit('online',{ onlineID: userID });
 		}
-<<<<<<< 5e6792c1dca15ecc51329c1d68ca70f9e2aa5e1f
+
 	});
-=======
+
+
+
+
 		console.log(people);
 
->>>>>>> [fix] bracket error
+
 
 	socket.on('getOnlineUsers', function(){
 		io.emit('broadcastOnline',{ users: people });
@@ -74,8 +77,11 @@ io.on('connection', function(socket) {
 	socket.on('partnerWithMatch', function(partnerObject){
 
 		console.log('partnerObject is : ',partnerObject);
+<<<<<<< HEAD
 <<<<<<< 5e6792c1dca15ecc51329c1d68ca70f9e2aa5e1f
 =======
+=======
+>>>>>>> 8d5341e751002d914f11ab0b23f0c4cfe4f8748e
 
 		var inviterID = partnerObject.inviter.id;
 		var inviteeID = partnerObject.invitee.id;
@@ -118,11 +124,36 @@ io.on('connection', function(socket) {
       socket.emit('receive socket', socket.id)
   })
 
+
+		var roomName = '' + partnerObject.fromUser.id + ':' + partnerObject.toUser.id + '';
+		console.log('new room created, id is : ',roomName);
+		rooms.push(roomName);
+		var fromID = partnerObject.fromUser.id;
+		var toID = partnerObject.toUser.id;
+		io.sockets.connected[people[fromID].socket].join(roomName);
+		io.sockets.connected[people[toID].socket].join(roomName);
+		io.to(roomName).emit('joinRoom',{ roomID: roomName, toID: toID, fromID: fromID });
+		console.log(sockets[0]);
+	})
+	// chat
+	 socket.on('new message', function(msg) {
+      socket.emit('new bc message', msg);
+
+    });
+  socket.on('stop typing', function (data) {
+    socket.broadcast.to(data.channel).emit('stop typing bc', data.user);
+  });
+  socket.on('chat mounted', function(user) {
+      // TODO: Does the server need to know the user?
+      socket.emit('receive socket', socket.id)
+  })
+
 	//disconnect from the server
 	socket.on('leave', function(){
 		var userID = people[socket.id];
 		socket.emit('offline', { offlineID: people[userID] });
 	  delete people[socket.id];
+<<<<<<< HEAD
 <<<<<<< 5e6792c1dca15ecc51329c1d68ca70f9e2aa5e1f
 	  for(var key in people){
 	  	if(people[key] === userID){
@@ -137,6 +168,8 @@ io.on('connection', function(socket) {
 	});
 });
 =======
+=======
+>>>>>>> 8d5341e751002d914f11ab0b23f0c4cfe4f8748e
 	  sockets.splice(sockets.indexOf(socket), 1);
 	})
 
@@ -147,4 +180,7 @@ module.exports = {
 		console.log('emitMatch called in socketController!');
 	}
 }
+<<<<<<< HEAD
 >>>>>>> [fix] bracket error
+=======
+>>>>>>> 8d5341e751002d914f11ab0b23f0c4cfe4f8748e
