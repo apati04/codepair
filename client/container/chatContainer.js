@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 import * as actions from '../actions';
 import Chat from '../components/chat';
 import { connect } from 'react-redux';
@@ -8,7 +8,7 @@ import profile from '../components/matchItem'
 class ChatContainer extends Component {
     componentDidMount(){
     this.socket = io();
-    console.log(this.socket.id);
+    console.log('the proptypes, : ', this.PropTypes);
   }
 
   render() {

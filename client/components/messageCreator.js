@@ -11,8 +11,9 @@ export default class MessageCreator extends Component {
       typing: false
     }
   }
+ 
   componentDidMount() {
-      this.socket = io();  
+    
   };
   onKeyDown(event) {
     console.log('props', this.props);
@@ -48,8 +49,8 @@ export default class MessageCreator extends Component {
         ref='MessageCreator'
         autoFocus="true"
         value={this.state.text}
-        onChange={this.onChange.bind(this)}
-        onKeyDown={this.onKeyDown.bind(this)}
+        onChange={this.onChange}
+        onKeyDown={this.onKeyDown}
       />
     );
   }
