@@ -27,6 +27,9 @@ const rightIconMenu = (
 );
 
 export default class MessagesList extends Component {
+  constructor(props){
+    super(props);
+  }
   render () {
   
     return (
@@ -35,12 +38,12 @@ export default class MessagesList extends Component {
       <ListItem
         rightIconButton={rightIconMenu} 
         primaryText={
-          <p></p>
+          <p> {this.props.userId} </p>
         }
         secondaryText={
           <p>
           <span style={ {color: 'grey'} }></span>
-          Secondary text
+          
           </p>
         }
         secondaryTextLines = {2}
