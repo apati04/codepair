@@ -1,5 +1,5 @@
-import React, { Component, Proptypes } from 'react';
-import { List, ListItem} from 'material-ui/List';
+import React, { Component } from 'react';
+import { List, ListItem } from 'material-ui/List';
 import Divider from 'material-ui/Divider';
 import Subheader from 'material-ui/Subheader';
 import Avatar from 'material-ui/Avatar';
@@ -8,8 +8,7 @@ import IconButton from 'material-ui/IconButton';
 import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
 import IconMenu from 'material-ui/IconMenu';
 import MenuItem from 'material-ui/MenuItem';
-import Profile from './profile';
-import MessageCreator from './messageCreator';
+
 const iconButtonElement = (
   <IconButton
     touch={true}
@@ -29,10 +28,10 @@ const rightIconMenu = (
 
 export default class MessagesList extends Component {
   render () {
-    let {message} = this.props;
+    const { message } = this.props;
     return (
       <div id="content" className="content">
-      <Subheader>{ this.text} </Subheader>
+      <Subheader>Subheader </Subheader>
       <ListItem
         rightIconButton={rightIconMenu} 
         primaryText={
@@ -40,7 +39,7 @@ export default class MessagesList extends Component {
         }
         secondaryText={
           <p>
-          <span style={ {color: 'grey'} }>{ Profile } </span>
+          <span style={ {color: 'grey'} }></span>
           Secondary text
           </p>
         }

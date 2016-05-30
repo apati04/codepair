@@ -1,8 +1,7 @@
-import React,{ Component, PropTypes } from 'react';
-import * as actions from '../actions';
-import { connect } from 'react-redux';
+import React,{ Component } from 'react';
 import moment from 'moment';
-import profile from './profile';
+
+
 
 export default class MessageCreator extends Component {
 
@@ -11,16 +10,13 @@ export default class MessageCreator extends Component {
     this.state = {
       text: '',
       typing: false
-  }
+    }
   }
   onKeyDown(event) {
-    const { socket, message , typing} = this.props;
-    console.log('the this props ,: ', this.props);
-    console.log(this.context);
     const text = event.target.value.trim();
     if (event.which === 13) {
       event.preventDefault();
-      var data = {
+      var newMessage = {
         message: text,
         user: typing,
         time: moment.utc().format('lll')
@@ -32,11 +28,11 @@ export default class MessageCreator extends Component {
     }
   }
   onChange(event) {
-    const { socket, user, activeChannel } = this.props;
-    console.log('the props', this.props);
+
     this.setState({ text: event.target.value });
+    console.log(this.state);
     if (event.target.value.length > 0 && !this.state.typing) {
-      // socket.emit('typing', { user: user.username, channel: activeChannel });
+      socket.emit('typing', { user: user.username, channel: activeChannel });
       this.setState({ typing: true});
     }
     if (event.target.value.length === 0 && this.state.typing) {
@@ -49,7 +45,7 @@ export default class MessageCreator extends Component {
       <textarea 
         name="message"
         className="input"
-        ref='messageCreator'
+        ref='MessageCreator'
         autoFocus="true"
         value={this.state.text}
         onChange={this.onChange.bind(this)}
@@ -57,5 +53,4 @@ export default class MessageCreator extends Component {
       />
     );
   }
-
 }
