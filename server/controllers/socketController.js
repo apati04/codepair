@@ -17,7 +17,12 @@ io.on('connection', function(socket) {
 			people[socket.id] = user.id;
 			io.emit('online',{ onlineID: userID });
 		}
+<<<<<<< 5e6792c1dca15ecc51329c1d68ca70f9e2aa5e1f
 	});
+=======
+		console.log(people);
+
+>>>>>>> [fix] bracket error
 
 	socket.on('getOnlineUsers', function(){
 		io.emit('broadcastOnline',{ users: people });
@@ -69,8 +74,27 @@ io.on('connection', function(socket) {
 	socket.on('partnerWithMatch', function(partnerObject){
 
 		console.log('partnerObject is : ',partnerObject);
+<<<<<<< 5e6792c1dca15ecc51329c1d68ca70f9e2aa5e1f
+=======
+
+		var inviterID = partnerObject.inviter.id;
+		var inviteeID = partnerObject.invitee.id;
+		var newRoom = '' + inviteeID + ':' + inviterID + '';
+		console.log('new room created, id is : ',newRoom);
+		rooms.push(newRoom);
+		io.emit('partnerInvite', {inviterID: inviterID, inviteeID: inviteeID});
+		// io.sockets.connected[people[fromID].socket].join(newRoom);
+		// io.sockets.connected[people[toID].socket].join(newRoom);
+		// io.to(newRoom).emit('joinRoom',{ roomID: newRoom, toID: toID, fromID: fromID });
+		// console.log(sockets[0]);
+	});
+>>>>>>> [fix] bracket error
 
 
+<<<<<<< 5e6792c1dca15ecc51329c1d68ca70f9e2aa5e1f
+=======
+
+>>>>>>> [fix] bracket error
 		var roomName = '' + partnerObject.fromUser.id + ':' + partnerObject.toUser.id + '';
 		console.log('new room created, id is : ',roomName);
 		rooms.push(roomName);
@@ -93,12 +117,13 @@ io.on('connection', function(socket) {
       // TODO: Does the server need to know the user?
       socket.emit('receive socket', socket.id)
   })
->>>>>>> [setup] makes progress on chat to sockets
+
 	//disconnect from the server
 	socket.on('leave', function(){
 		var userID = people[socket.id];
 		socket.emit('offline', { offlineID: people[userID] });
 	  delete people[socket.id];
+<<<<<<< 5e6792c1dca15ecc51329c1d68ca70f9e2aa5e1f
 	  for(var key in people){
 	  	if(people[key] === userID){
 	  		delete people[key];
@@ -111,3 +136,15 @@ io.on('connection', function(socket) {
 		sockets.splice(sockets.indexOf(socket), 1);
 	});
 });
+=======
+	  sockets.splice(sockets.indexOf(socket), 1);
+	})
+
+})
+
+module.exports = {
+	emitMatch: function(fromUser, toUser) {
+		console.log('emitMatch called in socketController!');
+	}
+}
+>>>>>>> [fix] bracket error
