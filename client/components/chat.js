@@ -3,9 +3,8 @@ import Draggable, { DraggableCore } from 'react-draggable';
 import MessageList from './messageList';
 import MessageCreator from './messageCreator';
 import * as actions from '../actions';
-import user from './matchItem';
-import io from 'socket.io-client';
 
+import profile from './profile';
 export default class Chat extends Component {
 	constructor(props) {
     super(props);
@@ -15,26 +14,11 @@ export default class Chat extends Component {
       messages: '',
     }
   }
-	componentDidMount() {
-		const socket = io.connect();
-    const { user, dispatch } = this.props;
-    socket.emit('chat mounted', user);
-    socket.on('new message', msg =>
-      dispatch(actions.receiveMessage(msg))
-    );
-    socket.on('typing', user =>
-      dispatch(actions.typing(user))
-    );
-    socket.on('stop typing bc', user =>
-      dispatch(actions.stopTyping(user))
-    );
-  }
-	handleClickOnUser(user) {
-    this.setState({ privateChannelModal: true, targetedUser: user });
-  }
-    handleSendDirectMessage() {
-    const { dispatch, socket, channels, user } = this.props;
-  }
+	componentDidMount(){
+		this.socket = io();
+		console.log('chat.js connected', profile);
+
+	}
 
 	render() {
 	

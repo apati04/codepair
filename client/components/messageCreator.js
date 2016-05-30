@@ -1,7 +1,6 @@
 import React,{ Component } from 'react';
 import moment from 'moment';
-
-
+import * as actions from '../actions'
 
 export default class MessageCreator extends Component {
 
@@ -12,33 +11,34 @@ export default class MessageCreator extends Component {
       typing: false
     }
   }
+  componentDidMount() {
+      this.socket = io();  
+  };
   onKeyDown(event) {
+    console.log('props', this.props);
+    console.log('context:', this.context);
     const text = event.target.value.trim();
     if (event.which === 13) {
       event.preventDefault();
       var newMessage = {
         message: text,
-        user: typing,
         time: moment.utc().format('lll')
       };
-      socket.emit('new message', newMessage);
-      socket.emit('stop typing', { user: user.username, channel: activeChannel });
+      this.socket.emit('new message', newMessage);
+   
       // this.props.onSave(newMessage);
-      this.setState({ text: '', typing: false });
+      this.setState({ text: '', typing: false});
     }
   }
   onChange(event) {
-
+    this.socket = io();
     this.setState({ text: event.target.value });
     console.log(this.state);
     if (event.target.value.length > 0 && !this.state.typing) {
-      socket.emit('typing', { user: user.username, channel: activeChannel });
+      this.socket.emit('typing', this.state );
       this.setState({ typing: true});
     }
-    if (event.target.value.length === 0 && this.state.typing) {
-      socket.emit('stop typing', { user: user.username, channel: activeChannel });
-      this.setState({ typing: false});
-    }
+    
   }
   render() {
     return (
