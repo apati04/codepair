@@ -87,6 +87,7 @@ io.on('connection', function(socket) {
 	// These socket routes handle pairing with users the current user has already matched with:
 	socket.on('partnerWithMatch', function(partnerObject){
 		console.log('partnerObject is : ',partnerObject);
+<<<<<<< 7e71d66293f3592d2cebb7d935f2ca88830d811e
 		var inviterID = partnerObject.inviter.id;
 		var inviteeID = partnerObject.invitee.id;
 		var newRoom = '' + inviteeID + ':' + inviterID + '';
@@ -104,6 +105,29 @@ io.on('connection', function(socket) {
 		io.emit('partnerInviteeAccepted',data);
 	});
 
+=======
+		var roomName = '' + partnerObject.fromUser.id + ':' + partnerObject.toUser.id + '';
+		console.log('new room created, id is : ',roomName);
+		rooms.push(roomName);
+		var fromID = partnerObject.fromUser.id;
+		var toID = partnerObject.toUser.id;
+		io.sockets.connected[people[fromID].socket].join(roomName);
+		io.sockets.connected[people[toID].socket].join(roomName);
+		io.to(roomName).emit('joinRoom',{ roomID: roomName, toID: toID, fromID: fromID });
+		console.log(sockets[0]);
+	})
+	// chat
+  socket.on('typing', function (data) {
+    socket.broadcast.to(data.channel).emit('typing bc', data.user);
+  });
+  socket.on('stop typing', function (data) {
+    socket.broadcast.to(data.channel).emit('stop typing bc', data.user);
+  });
+  socket.on('chat mounted', function(user) {
+      // TODO: Does the server need to know the user?
+      socket.emit('receive socket', socket.id)
+  })
+>>>>>>> [setup] makes progress on chat to sockets
 	//disconnect from the server
 	socket.on('disconnect', function(){
 	  delete people[socket.id];
