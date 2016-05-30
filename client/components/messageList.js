@@ -28,14 +28,14 @@ const rightIconMenu = (
 
 export default class MessagesList extends Component {
   render () {
-    const { message } = this.props;
+  
     return (
       <div id="content" className="content">
       <Subheader>Subheader </Subheader>
       <ListItem
         rightIconButton={rightIconMenu} 
         primaryText={
-          <p>{ message } </p>
+          <p></p>
         }
         secondaryText={
           <p>

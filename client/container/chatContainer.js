@@ -2,24 +2,24 @@ import React, { Component } from 'react';
 import * as actions from '../actions';
 import Chat from '../components/chat';
 import { connect } from 'react-redux';
-import io from 'socket.io-client';
+import profile from '../components/matchItem'
 
-const socket = io.connect();
 
 class ChatContainer extends Component {
-  componentWillMount() {
-  
-   console.log('the props: ', this.props.getUserInfo);
+    componentDidMount(){
+    this.socket = io();
+    console.log(this.socket.id);
   }
   render() {
+   
     return (
-      <Chat {...this.props} />
+      <Chat {...this.props} socket={this.socket} />
     );
   }
 }
 function mapStateToProps(state) {
   return {
-      state
+      message: state.message
   }
 }
 export default connect(mapStateToProps, actions)(ChatContainer)
